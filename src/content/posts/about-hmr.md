@@ -87,7 +87,7 @@ HMR 需要删除一个模块以及所有直接或间接依赖它的 ModuleJob，
 
 模块路径如图所示:
 
-![](/Users/duzexuan/Documents/GitHub/anything/src/assets/images/872bc938faaba3d1213455f3a159ee95730aabfa.png)
+![](assets/images/83176c3234689a120a45bef650fad72383df5476.png)
 
 ### 依赖重载
 
@@ -95,13 +95,13 @@ HMR 需要删除一个模块以及所有直接或间接依赖它的 ModuleJob，
 
 那么此时我们就需要分析重载边界，这时，我们发现，在ModuleJob中有一个键为linked的列表，内容如下图所示:
 
-![](/Users/duzexuan/Documents/GitHub/anything/src/assets/images/abc979e2296ae132bfc8754b962039e91ae2537e.png)
+![](assets/images/2025-08-26-08-48-02-image.png)
 
 这时候我们意识到，linked中就是某个模块的依赖!
 
 但是要注意，在某些情况下，linked的位置有两个，这是因为 Node ESM loader 里在不同加载阶段引用的依赖集存储位置不同(可执行阶段或链接阶段)，如下图所示:
 
-![](/Users/duzexuan/Documents/GitHub/anything/src/assets/images/9848cfb5bfcd2a151991053275e71ef5c29d6c72.jpg)
+![](assets/images/d864a3cf836783946f09bc7946d4bcd71d1657f2.jpg)
 
 我们只需要从插件入口开始遍历每个依赖，然后获取每个模块的依赖项，构建图结构查找即可。
 
@@ -133,7 +133,7 @@ HMR 需要删除一个模块以及所有直接或间接依赖它的 ModuleJob，
 
 ### 生产环境不推荐
 
-本方案依赖 `--expose-internals` 暴露的 Node.js 内部模块，该 API 未文档化，仅在早期Node.js的提交中偶然出现，没有稳定性保障，可能在任何版本更新中被修改或移除。同时，访问内部对象可能带来潜在的安全风险，并破坏 Node.js 运行时的内部状态。  
+本方案依赖 `--expose-internals` 暴露的 Node.js 内部模块，该 API 并未文档化，仅在早期Node.js的提交中偶然出现，没有稳定性保障，可能在任何版本更新中被修改或移除。同时，访问内部对象可能带来潜在的安全风险，并破坏 Node.js 运行时的内部状态。  
 建议仅在本地开发或调试环境中启用，不要直接用于线上生产系统。
 
 # 结语
