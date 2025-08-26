@@ -1,5 +1,3 @@
-# 关于
-
 # 你好!
 
 ## ヾ(•ω•`)o 欢迎来到 Sylphy 的小站!
@@ -19,7 +17,7 @@
 * 坐标深圳福田。
 
 * 开发:  
-
-*   Node.js,TypeScript,WebSocket开发后端工程师。
-
-*   Node.js 贡献者。
+  
+  * Node.js,TypeScript,WebSocket开发后端工程师。
+  
+  * Node.js 贡献者。
