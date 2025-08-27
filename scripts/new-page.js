@@ -1,67 +1,68 @@
-/* Create a new Astro page under src/pages and a spec content file using given title and description */
+/* This is a script to create a new page with a markdown file */
 
 import fs from "fs"
 import path from "path"
 
-const args = process.argv.slice(2)
-
-if (args.length < 1) {
-  console.error(`Error: Missing required arguments\nUsage: node scripts/new-page.js <title>`)
-  process.exit(1)
-}
-
-const rawTitle = args[0]
-
-function toSlug(title) {
-  return title
+function toSlug(fileName) {
+  return fileName
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9\u4e00-\u9fa5\s-_]/gi, "")
     .replace(/\s+/g, "-")
 }
 
-const slug = toSlug(rawTitle)
-if (!slug) {
+const args = process.argv.slice(2)
+
+if (args.length < 1) {
+  console.error(`Error: No filename argument provided
+Usage: npm run new-page -- <pagename>`)
+  process.exit(1) // Terminate the script and return error code 1
+}
+
+let pageName = args[0]
+
+pageName = toSlug(pageName)
+if (!pageName) {
   console.error("Error: Title produced an empty slug")
   process.exit(1)
 }
 
-// Ensure .astro extension for page
-const pageFileName = slug.endsWith(".astro") ? slug : `${slug}.astro`
+const pageFileName = `${pageName}.astro`
 
 const pagesDir = "./src/pages/"
 const contentDir = "./src/content/spec/"
 const pageFullPath = path.join(pagesDir, pageFileName)
-const contentFullPath = path.join(contentDir, `${slug}.md`)
+const contentFullPath = path.join(contentDir, `${pageName}.md`)
 
-// Guards
+// check if the file already exists
 if (fs.existsSync(pageFullPath)) {
-  console.error(`Error: Page file ${pageFullPath} already exists`)
+  console.error(`Error: Page file ${pageFullPath} already exists `)
   process.exit(1)
 }
 if (fs.existsSync(contentFullPath)) {
-  console.error(`Error: Content file ${contentFullPath} already exists`)
+  console.error(`Error: Content file ${contentFullPath} already exists `)
   process.exit(1)
 }
 
-// Ensure directories
+// create directories if they don't exist
 for (const dir of [pagesDir, contentDir]) {
   if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true })
+    console.log(`Error: Directory ${dir} does not exist `)
+    process.exit(1) // Terminate the script and return error code 1
   }
 }
 
-// Write content file under spec
-const md = `# ${rawTitle}\n`
+// write markdown content file
+const md = `# ${pageName}\n`
 fs.writeFileSync(contentFullPath, md)
 
-// Page content
+// write astro page content
 const pageContent = `---
 import { getEntry, render } from "astro:content";
 import Markdown from "@components/misc/Markdown.astro";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
-const pagePost = await getEntry("spec", ${JSON.stringify(slug)});
+const pagePost = await getEntry("spec", ${JSON.stringify(pageName)});
 
 if (!pagePost) {
     throw new Error("Page content not found");
@@ -69,7 +70,7 @@ if (!pagePost) {
 
 const { Content } = await render(pagePost);
 ---
-<MainGridLayout title={${JSON.stringify(rawTitle)}} description={${JSON.stringify(rawTitle)}}>
+<MainGridLayout title={${JSON.stringify(pageName)}} description={${JSON.stringify(pageName)}}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
         <div class="card-base z-10 px-9 py-6 relative w-full ">
             <Markdown class="mt-2">
@@ -79,7 +80,6 @@ const { Content } = await render(pagePost);
     </div>
 </MainGridLayout>
 `
-
 fs.writeFileSync(pageFullPath, pageContent)
 
 const relativePagePath = path.relative(process.cwd(), contentFullPath)
