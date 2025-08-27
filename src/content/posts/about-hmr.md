@@ -51,13 +51,13 @@ HMR 即模块热替换(Hot Module Replacement)，在业务模块的开发过程�
 
 目前，网络上常见的模块热替换基本为通过import缓存的是URL这一特性添加query等不影响URL地址内容的额外字符，让每次导入都使用不同的URL，防止导入被缓存的模块，实际上内部在每次加载还是会缓存URL，严重时可能导致内存泄露。
 
-在某些框架如[Koishi](https://koishi。chat)中，支持通过require.cache删除已经加载的模块来实现HMR，但require.cache仅仅在 CJS 环境下可用。在 ESM 环境下加载的模块根本不会写入这个对象。你可以在许多 issue 中看到人们对此的抱怨和请求：
+在某些框架如 [Koishi](https://koishi.chat) 中，支持通过require.cache删除已经加载的模块来实现HMR，但require.cache仅仅在 CJS 环境下可用。在 ESM 环境下加载的模块根本不会写入这个对象。你可以在许多 issue 中看到人们对此的抱怨和请求：
 
 - [ESM module reloading and module graph · Issue #51 · nodejs/tooling · GitHub 2](https://github.com/nodejs/tooling/issues/51)
 - [hot reload modules w/ es6 modules · Issue #459 · nodejs/modules · GitHub 2](https://github.com/nodejs/modules/issues/459)
 - [Invalidate cache when using import · Issue #49442 · nodejs/node · GitHub 3](https://github.com/nodejs/node/issues/49442)
 
-在2024年的Koishi v5预告中，Koishi声称实在其元框架Cordis上实现了**互联网上首个无需打包器的 ESM HMR 完整技术广泛应用的完整技术方案之一**。
+在2024年的 Koishi v5 预告中，Koishi 声称实在其元框架Cordis上实现了**互联网上首个无需打包器的 ESM HMR 完整技术广泛应用的完整技术方案之一**。
 
 最终Koishi设计了两套完整的算法来解决上述问题。目前在 Cordis 仓库中使用的是其中一套。它基于一些 Node.js 内部 API，可以在守护进程中使用。后续如果有时间，Koishi也可能切换到另一套实现，它不依赖任何内部 API 就能安全地解决 CJS-ESM 多例和 ESM HMR 问题。
 
@@ -88,6 +88,10 @@ HMR 需要删除一个模块以及所有直接或间接依赖它的 ModuleJob，
 
 ![](assets/images/83176c3234689a120a45bef650fad72383df5476.png)
 
+### 缓存清理
+
+清理一个模块缓存,建议优先使用filter过滤，使用Map.prototype.delete或delete关键字可能会导致意想不到的后果。
+
 ### 依赖重载
 
 在完成了基本的模块缓存删除后，我们意识到在某个模块清除缓存后，它的嵌套模块也需要被清理。
@@ -116,7 +120,7 @@ HMR 需要删除一个模块以及所有直接或间接依赖它的 ModuleJob，
 
 原因是这些模块通常是运行时的基础设施，**删除它们的缓存有可能导致整个进程不稳定甚至崩溃**；并且它们的代码几乎不会在开发过程中频繁改动，也不需要纳入 HMR 重载范围。
 
-### 关于 Effect Space（副作用空间）
+### 关于 Effect（副作用）
 
 即便我们清理了模块缓存并重新加载代码，Node.js 进程中依然可能存在由旧代码遗留的运行时状态，例如：
 
@@ -126,8 +130,8 @@ HMR 需要删除一个模块以及所有直接或间接依赖它的 ModuleJob，
 - 全局单例对象
 - 在全局作用域挂载的属性
 
-这些运行时残留被称为 **Effect Space**（副作用空间）。  
-热重载只是保证代码重新执行，**无法自动消除副作用空间**。  
+这些运行时残留被称为 **Effect**（副作用）。  
+热重载只是保证代码重新执行，**无法自动消除副作用**。  
 如果模块存在副作用，就需要提供显式的清理方法（如 `dispose` 钩子）来在 HMR 前解除绑定或释放资源，否则多次热重载可能造成内存泄漏和逻辑冲突。
 
 ### 生产环境不推荐
@@ -142,3 +146,9 @@ HMR 需要删除一个模块以及所有直接或间接依赖它的 ModuleJob，
 从更长远的角度看，ESM HMR 的理想方案应该是安全、稳定、无内存泄漏且不依赖内部实现的——如 Koishi 团队的第二套不依赖内部 API 的实现，或社区推动 Node.js 官方暴露受控的模块缓存管理接口。
 
 Node.js ESM HMR 依然是一块需要更多探索的领域。无论是推动官方 API 的开放，还是构建不依赖内部机制的实现，社区的持续研究与分享都将加速这一能力的成熟落地。
+
+# 致谢
+
+[Koishi](https://github.com/koishijs/koishi)
+
+[Karin](https://github.com/karinjs/karin)
