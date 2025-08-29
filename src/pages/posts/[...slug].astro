@@ -126,10 +126,10 @@ const jsonLd = {
 
             {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
 
-            <div class="mt-6 w-full border border-[#2e9fff] rounded-xl">
+            <div class="mt-6 w-full border rounded-xl" style="border-color: oklch(0.686 0.174 var(--hue))">
                 <div class="w-full flex justify-center items-center gap-3 py-3">
-                    <button id="btn-giscus" class="px-4 h-9 rounded-full border text-sm font-medium transition-colors border-[#2e9fff] text-[#2e9fff] hover:bg-[#2e9fff]/10 active:scale-95">Giscus</button>
-                    <button id="btn-disqus" class="px-4 h-9 rounded-full border text-sm font-medium transition-colors border-[#2e9fff] text-[#2e9fff] hover:bg-[#2e9fff]/10 active:scale-95">Disqus</button>
+                    <button id="btn-giscus" class="px-4 h-9 rounded-full border text-sm font-medium transition-colors border-[oklch(0.686_0.174_var(--hue))] text-[oklch(0.686_0.174_var(--hue))] hover:bg-[oklch(0.686_0.174_var(--hue))/0.1] active:scale-95">Giscus</button>
+                    <button id="btn-disqus" class="px-4 h-9 rounded-full border text-sm font-medium transition-colors border-[oklch(0.686_0.174_var(--hue))] text-[oklch(0.686_0.174_var(--hue))] hover:bg-[oklch(0.686_0.174_var(--hue))/0.1] active:scale-95">Disqus</button>
                 </div>
                 <div class="px-3 pb-3">
                     <div id="giscus_container">
@@ -178,8 +178,9 @@ const jsonLd = {
                     function setActiveButton(target) {
                         [btnGiscus, btnDisqus].forEach(function (btn) {
                             if (!btn) return;
-                            btn.style.backgroundColor = btn === target ? '#2e9fff' : 'transparent';
-                            btn.style.color = btn === target ? '#ffffff' : '#2e9fff';
+                            const primaryColor = `oklch(0.686 0.174 var(--hue))`;
+                            btn.style.backgroundColor = btn === target ? primaryColor : 'transparent';
+                            btn.style.color = btn === target ? '#ffffff' : primaryColor;
                         });
                     }
 
