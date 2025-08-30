@@ -13,6 +13,12 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "tailwindCSS.includeLanguages": {
+    "css": "css"
+  },
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
     "quickfix.biome": "always",

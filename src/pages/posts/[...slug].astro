@@ -42,7 +42,7 @@ const jsonLd = {
 	inLanguage: entry.data.lang
 		? entry.data.lang.replace("_", "-")
 		: siteConfig.lang.replace("_", "-"),
-	// TODO include cover image here
+	image: entry.data.image ? `${Astro.site}${entry.data.image}` : undefined,
 };
 ---
 <MainGridLayout banner={entry.data.image} title={entry.data.title} description={entry.data.description} lang={entry.data.lang} setOGTypeArticle={true} headings={headings}>
@@ -152,13 +152,15 @@ const jsonLd = {
                     <div id="disqus_thread"></div>
                     <script>
                         var disqus_config = function () {
-                        this.page.url = Astro.url.href;
-                        this.page.identifier = entry.slug;
-                        };
+                            (window as any).page = {
+                                url: Astro.url.href,
+                                identifier: Astro.url.pathname
+                            };
+                        };  
                         (function() {
                         var d = document, s = d.createElement('script');
                         s.src = 'https://0xd3ac-dev.disqus.com/embed.js';
-                        s.setAttribute('data-timestamp', +new Date());
+                        s.setAttribute('data-timestamp', String(new Date().getTime()));
                         (d.head || d.body).appendChild(s);
                         })();
                     </script>
