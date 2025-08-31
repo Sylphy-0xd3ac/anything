@@ -1,5 +1,6 @@
 ---
 import path from "node:path";
+import Comments from "@components/misc/Comments.astro";
 import License from "@components/misc/License.astro";
 import Markdown from "@components/misc/Markdown.astro";
 import I18nKey from "@i18n/i18nKey";
@@ -11,7 +12,7 @@ import { Icon } from "astro-icon/components";
 import { licenseConfig } from "src/config";
 import ImageWrapper from "../../components/misc/ImageWrapper.astro";
 import PostMetadata from "../../components/PostMeta.astro";
-import { profileConfig, siteConfig } from "../../config";
+import { commentsConfig, profileConfig, siteConfig } from "../../config";
 import { formatDateToYYYYMMDD } from "../../utils/date-utils";
 
 export async function getStaticPaths() {
@@ -126,84 +127,7 @@ const jsonLd = {
 
             {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
 
-            <div class="mt-6 w-full border rounded-xl" style="border-color: oklch(0.686 0.174 var(--hue))">
-                <div class="w-full flex justify-center items-center gap-3 py-3">
-                    <button id="btn-giscus" class="px-4 h-9 rounded-full border text-sm font-medium transition-colors border-[oklch(0.686_0.174_var(--hue))] text-[oklch(0.686_0.174_var(--hue))] hover:bg-[oklch(0.686_0.174_var(--hue))/0.1] active:scale-95">Giscus</button>
-                    <button id="btn-disqus" class="px-4 h-9 rounded-full border text-sm font-medium transition-colors border-[oklch(0.686_0.174_var(--hue))] text-[oklch(0.686_0.174_var(--hue))] hover:bg-[oklch(0.686_0.174_var(--hue))/0.1] active:scale-95">Disqus</button>
-                </div>
-                <div class="px-3 pb-3">
-                    <div id="giscus_container">
-                        <script src="https://giscus.app/client.js"
-                            data-repo="Sylphy-0xd3ac/anything"
-                            data-repo-id="R_kgDOPj1SDQ"
-                            data-category="General"
-                            data-category-id="DIC_kwDOPj1SDc4CulmY"
-                            data-mapping="pathname"
-                            data-strict="0"
-                            data-reactions-enabled="1"
-                            data-emit-metadata="0"
-                            data-input-position="top"
-                            data-theme="preferred_color_scheme"
-                            data-lang="zh-CN"
-                            crossorigin="anonymous"
-                            async>
-                        </script>
-                    </div>
-                    <div id="disqus_thread"></div>
-                    <script>
-                        var disqus_config = function () {
-                            (window as any).page = {
-                                url: Astro.url.href,
-                                identifier: Astro.url.pathname
-                            };
-                        };  
-                        (function() {
-                        var d = document, s = d.createElement('script');
-                        s.src = 'https://0xd3ac-dev.disqus.com/embed.js';
-                        s.setAttribute('data-timestamp', String(new Date().getTime()));
-                        (d.head || d.body).appendChild(s);
-                        })();
-                    </script>
-                </div>
-            </div>
-
-            <script is:inline>
-                (function () {
-                    if (typeof window === 'undefined') return;
-
-                    var btnGiscus = document.getElementById('btn-giscus');
-                    var btnDisqus = document.getElementById('btn-disqus');
-                    var giscusBox = document.getElementById('giscus_container');
-                    var disqusBox = document.getElementById('disqus_thread');
-                    var disqusLoaded = false;
-
-                    function setActiveButton(target) {
-                        [btnGiscus, btnDisqus].forEach(function (btn) {
-                            if (!btn) return;
-                            const primaryColor = `oklch(0.686 0.174 var(--hue))`;
-                            btn.style.backgroundColor = btn === target ? primaryColor : 'transparent';
-                            btn.style.color = btn === target ? '#ffffff' : primaryColor;
-                        });
-                    }
-
-                    function showGiscus() {
-                        if (giscusBox) giscusBox.classList.remove('hidden');
-                        if (disqusBox) disqusBox.classList.add('hidden');
-                        setActiveButton(btnGiscus);
-                    }
-
-                    function showDisqus() {
-                        if (giscusBox) giscusBox.classList.add('hidden');
-                        if (disqusBox) disqusBox.classList.remove('hidden');
-                        setActiveButton(btnDisqus);
-                    }
-
-                    if (btnGiscus) btnGiscus.addEventListener('click', showGiscus);
-                    if (btnDisqus) btnDisqus.addEventListener('click', showDisqus);
-
-                    showGiscus();
-                })();
-            </script>
+            <Comments config={commentsConfig} />
         </div>
     </div>
 

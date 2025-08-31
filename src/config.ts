@@ -1,4 +1,5 @@
 import type {
+	CommentsConfig,
 	ExpressiveCodeConfig,
 	LicenseConfig,
 	NavBarConfig,
@@ -75,4 +76,13 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 	// Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
 	// Please select a dark theme, as this blog theme currently only supports dark background color
 	theme: "github-dark",
+};
+
+export const commentsConfig: CommentsConfig = {
+	repo: "Sylphy-0xd3ac/anything",
+	repoId: "R_kgDOPj1SDQ",
+	category: "General",
+	categoryId: "DIC_kwDOPj1SDc4CulmY",
+	lang: "zh-CN",
+	theme: "preferred_color_scheme",
 };

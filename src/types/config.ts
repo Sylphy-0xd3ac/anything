@@ -100,3 +100,12 @@ export type BlogPostData = {
 export type ExpressiveCodeConfig = {
 	theme: string;
 };
+
+export type CommentsConfig = {
+	repo: string;
+	repoId: string;
+	category: string;
+	categoryId: string;
+	lang: string;
+	theme: string;
+};
