@@ -52,24 +52,6 @@ const jsonLd = {
         <div id="post-container" class:list={["card-base z-10 px-6 md:px-9 pt-6 pb-4 relative w-full ",
             {}
         ]}>
-        <script is:inline>
-        (function(){
-        const container=document.getElementById('post-container');
-        if(container){
-        const bg=window.getComputedStyle(container).backgroundColor;
-        if(bg.startsWith('oklch(')||bg.startsWith('oklab(')){
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = bg;
-            ctx.fillRect(0, 0, 1, 1);
-            const imageData = ctx.getImageData(0, 0, 1, 1);
-            const [r, g, b, a] = imageData.data;
-            const rgbColor = `rgba(${r}, ${g}, ${b}, ${a/255})`;
-            container.style.backgroundColor = rgbColor;
-        }
-        }
-        })();
-        </script>
             <!-- word count and reading time -->
             <div class="flex flex-row text-black/30 dark:text-white/30 gap-5 mb-3 transition onload-animation">
                 <div class="flex flex-row items-center">

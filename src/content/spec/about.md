@@ -4,7 +4,7 @@
 
 ## 关于本站
 
-使用 Astro 作为框架，Fuwari 作为主题。使用 GitHub 进行源码存储，CloudFlare Pages 提供网页服务。
+使用 Astro 作为框架，Fuwari 作为主题。使用 GitHub 进行源码存储，Netlify 提供网页服务。
 
 ## 关于我
 
