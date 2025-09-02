@@ -65,7 +65,7 @@ const jsonLd = {
                         <Icon name="material-symbols:schedule-outline-rounded"></Icon>
                     </div>
                     <div class="text-sm">
-                        {remarkPluginFrontmatter.minutes} {" " + i18n(remarkPluginFrontmatter.minutes === 1 ? I18nKey.minuteCount : I18nKey.minutesCount)}
+                        {remarkPluginFrontmatter.minutes} {" " + i18n((remarkPluginFrontmatter.words as unknown as number) === 1 ? I18nKey.minuteCount : I18nKey.minutesCount)}
                     </div>
                 </div>
             </div>
