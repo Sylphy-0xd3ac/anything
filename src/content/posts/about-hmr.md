@@ -51,7 +51,7 @@ HMR 即模块热替换(Hot Module Replacement)，在业务模块的开发过程�
 
 目前，网络上常见的模块热替换基本为通过import缓存的是URL这一特性添加query等不影响URL地址内容的额外字符，让每次导入都使用不同的URL，防止导入被缓存的模块，实际上内部在每次加载还是会缓存URL，严重时可能导致内存泄露。
 
-在某些框架如 [Koishi](https://koishi.chat) 中，支持通过require.cache删除已经加载的模块来实现HMR，但require.cache仅仅在 CJS 环境下可用。在 ESM 环境下加载的模块根本不会写入这个对象。你可以在许多 issue 中看到人们对此的抱怨和请求：
+在某些框架如 [Koishi](https://koishi.chat) 中，支持通过require.cache删除已经加载的模块来实现HMR，但require.cache仅仅在 CJS 环境下可用。在 ESM 环境下加载的模块根本不会写入这个对象(参考[ESM-NoRequireCache](https://nodejs.org/api/esm.html#no-requirecache))。你可以在许多 issue 中看到人们对此的抱怨和请求：
 
 - [ESM module reloading and module graph · Issue #51 · nodejs/tooling · GitHub 2](https://github.com/nodejs/tooling/issues/51)
 - [hot reload modules w/ es6 modules · Issue #459 · nodejs/modules · GitHub 2](https://github.com/nodejs/modules/issues/459)
@@ -67,7 +67,7 @@ HMR 即模块热替换(Hot Module Replacement)，在业务模块的开发过程�
 
 ## --expose-internals
 
-这是一个神奇的参数，在Node.js官方文档中没有任何记载，只在其博客的更新日志中少有提到，貌似是早期Node.js为了方便test引入的参数。
+这是一个神奇的参数，在Node.js官方文档中没有任何记载，只在其博客的更新日志与源代码README中少有提到，貌似是早期Node.js为了方便test引入的参数。
 
 该参数可以暴露Node.js JavaScript内部internals组中的模块，而我们的loadCache就在internal/modules/esm/loader中，由此我们可以通过添加该参数来操作loadCache，从而实现HMR。
 
