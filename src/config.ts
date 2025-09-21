@@ -79,6 +79,7 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 };
 
 export const commentsConfig: CommentsConfig = {
+	enable: true,
 	repo: "Sylphy-0xd3ac/anything",
 	repoId: "R_kgDOPj1SDQ",
 	category: "General",

@@ -102,6 +102,7 @@ export type ExpressiveCodeConfig = {
 };
 
 export type CommentsConfig = {
+	enable: boolean;
 	repo: string;
 	repoId: string;
 	category: string;
