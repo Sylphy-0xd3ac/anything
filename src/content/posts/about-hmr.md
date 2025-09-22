@@ -1,19 +1,19 @@
 ---
 title: 浅谈Node.js ESM模块环境下的HMR
 published: 2025-08-25
-description: '众所周知，Node.js在加载模块时是有模块缓存的。在CJS模块环境下，我们可以通过require.cache来获取模块缓存，这为CJS环境下HMR(模块热插拔)提供了可能。然而，在ESM环境下，import(包括动态函数)被挂为了v8语法钩子，并且没有暴露模块缓存。本文将浅谈ESM模块环境下的HMR实现。'
-image: ''
-tags: ["Node.js","HMR","ESM"]
-category: 'Tech'
-draft: false 
-lang: 'zh_CN'
-
+description: 众所周知，Node.js在加载模块时是有模块缓存的。在CJS模块环境下，我们可以通过require.cache来获取模块缓存，这为CJS环境下HMR(模块热插拔)提供了可能。然而，在ESM环境下，import(包括动态函数)被挂为了v8语法钩子，并且没有暴露模块缓存。本文将浅谈ESM模块环境下的HMR实现。
+image: ""
+tags:
+  - Nodejs
+  - HMR
+  - ESM
+category: Tech
+draft: false
+lang: zh_CN
 ---
 
 # 背景
-
 ## Node.js ESM 环境中的 HMR 限制
-
 HMR（Hot Module Replacement / Hot Module Reload，模块热替换或热重载）是一种在应用运行时替换、更新模块代码而无需重启进程的技术。在前端开发中，像 Vite、Webpack 等打包器早已普遍支持 HMR，让开发者能即时预览修改效果。
 
 在 Node.js 后端环境中，HMR 的可行性与所使用的模块系统密切相关：
