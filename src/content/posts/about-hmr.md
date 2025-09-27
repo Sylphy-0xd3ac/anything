@@ -13,7 +13,7 @@ lang: zh_CN
 ---
 
 # 背景
-## Node.js ESM 环境中的 HMR 限制
+## Node.js ESM 环境中的 HMR
 HMR（Hot Module Replacement / Hot Module Reload，模块热替换或热重载）是一种在应用运行时替换、更新模块代码而无需重启进程的技术。在前端开发中，像 Vite、Webpack 等打包器早已普遍支持 HMR，让开发者能即时预览修改效果。
 
 在 Node.js 后端环境中，HMR 的可行性与所使用的模块系统密切相关：
@@ -67,10 +67,24 @@ HMR 即模块热替换(Hot Module Replacement)，在业务模块的开发过程�
 
 ## --expose-internals
 
-这是一个神奇的参数，在Node.js官方文档中没有任何记载，只在其博客的更新日志与源代码README中少有提到，貌似是早期Node.js为了方便test引入的参数。
+这是一个神奇的参数，在Node.js官方文档中没有任何记载，只在其博客的更新日志与源代码[README](https://github.com/nodejs/node/blob/main/lib/internal/README.md)中少有提到。
 
+```markdown
+# Internal Modules
+
+The modules located in `lib/internal` directory are exclusively meant
+for internal usage within the Node.js core. They are not intended to
+be accessed via user modules `require()`. These modules may change at
+any point in time. Relying on these internal modules outside the core
+is not supported and can lead to unpredictable behavior.
+
+In certain scenarios, accessing these internal modules for debugging or
+experimental purposes might be necessary. Node.js provides the `--expose-internals`
+flag to expose these modules to userland code. This flag only exists to
+assist Node.js maintainers with debugging internals. It is not meant for
+use outside the project.
+```
 该参数可以暴露Node.js JavaScript内部internals组中的模块，而我们的loadCache就在internal/modules/esm/loader中，由此我们可以通过添加该参数来操作loadCache，从而实现HMR。
-
 ## loadCache 和 ModuleJob
 
 `internal/modules/esm/loader` 里导出的 `loadCache` 是一个 `Map<url， ModuleJob>`：
