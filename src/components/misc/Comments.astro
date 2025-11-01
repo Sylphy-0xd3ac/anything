@@ -9,7 +9,7 @@ export interface Props {
 const { class: className, config } = Astro.props;
 ---
 
-<div class:list={["mt-6 w-full", className]}>
+<div class:list={["card-base","mt-6 z-10 px-6 md:px-9 pt-6 pb-4 relative w-full ", className]}>
     <script src="https://giscus.app/client.js"
         data-repo={config.repo}
         data-repo-id={config.repoId}
@@ -22,6 +22,7 @@ const { class: className, config } = Astro.props;
         data-input-position="top"
         data-theme={config.theme}
         data-lang={config.lang}
+        data-loading="lazy"
         crossorigin="anonymous"
         async>
     </script>

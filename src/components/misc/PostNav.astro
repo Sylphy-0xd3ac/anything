@@ -1,0 +1,43 @@
+---
+import { getPostUrlBySlug } from "@utils/url-utils";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	class?: string;
+	nextSlug?: string;
+	nextTitle?: string;
+	prevSlug?: string;
+	prevTitle?: string;
+}
+
+const {
+	class: className,
+	nextSlug,
+	nextTitle,
+	prevSlug,
+	prevTitle,
+} = Astro.props;
+---
+<div class:list={["flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full", className]}>
+    {nextSlug && <a href={getPostUrlBySlug(nextSlug)}
+       class="w-full font-bold overflow-hidden active:scale-95"> 
+        <div class="btn-card rounded-2xl w-full h-[3.75rem] max-w-full px-4 flex items-center !justify-start gap-4" >
+            <Icon name="material-symbols:chevron-left-rounded" class="text-[2rem] text-[var(--primary)]" />
+            <div class="overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-black/75 dark:text-white/75">
+                {nextTitle}
+            </div>
+        </div>
+    </a>}
+
+    {prevSlug && <a href={getPostUrlBySlug(prevSlug)}
+       class="w-full font-bold overflow-hidden active:scale-95"> 
+        <div class="btn-card rounded-2xl w-full h-[3.75rem] max-w-full px-4 flex items-center !justify-end gap-4">
+            <div class="overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-black/75 dark:text-white/75">
+                {prevTitle}
+            </div>
+            <Icon name="material-symbols:chevron-right-rounded" class="text-[2rem] text-[var(--primary)]" />
+        </div>
+    </a>}
+</div>
+
+
