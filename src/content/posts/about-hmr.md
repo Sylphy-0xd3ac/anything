@@ -25,7 +25,7 @@ HMR（Hot Module Replacement / Hot Module Reload，模块热替换或热重载�
   ESM 的 `import` 是 JavaScript 语法关键字，由 V8 引擎内部处理。Node.js 在实现中将动态导入函数 `import()` 也封装为了 V8 层面的语法钩子，不暴露任何对应的模块缓存结构。  
   这意味着在 ESM 环境下，开发者无法像在 CJS 那样通过操作 `require.cache` 来控制模块生命周期，直接造成了 HMR 场景下**缓存不可见、无法失效**的问题。
 
-这就是 **Node.js ESM 环境中的 HMR 限制**：模块缓存不透明，缺少官方 API 删除或替换模块实例，使得无打包器环境下的热重载实现难度大大增加。
+这就是 **Node.js ESM 环境中的 HMR**：模块缓存不透明，缺少官方 API 删除或替换模块实例，使得无打包器环境下的热重载实现难度大大增加。
 
 # ESM HMR难点
 
