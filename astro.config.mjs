@@ -161,6 +161,12 @@ export default defineConfig({
 		],
 	},
 	vite: {
+		ssr: {
+			noExternal: ["react", "react-dom", "react/jsx-runtime"],
+		},
+		optimizeDeps: {
+			include: ["react", "react-dom", "react/jsx-runtime"],
+		},
 		build: {
 			rollupOptions: {
 				onwarn(warning, warn) {
