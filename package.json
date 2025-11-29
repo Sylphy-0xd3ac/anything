@@ -37,6 +37,7 @@
 		"astro": "5.13.10",
 		"astro-expressive-code": "^0.41.3",
 		"astro-icon": "^1.1.5",
+		"css-parser": "github:ramya-rao-a/css-parser#main",
 		"hastscript": "^9.0.1",
 		"katex": "^0.16.25",
 		"markdown-it": "^14.1.0",
