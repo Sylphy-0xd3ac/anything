@@ -17,7 +17,7 @@
 		"preinstall": "npx only-allow pnpm"
 	},
 	"dependencies": {
-		"@astrojs/check": "^0.9.5",
+		"@astrojs/check": "^0.9.6",
 		"@astrojs/rss": "^4.0.13",
 		"@astrojs/sitemap": "^3.6.0",
 		"@astrojs/svelte": "7.2.0",
@@ -37,7 +37,6 @@
 		"astro": "5.13.10",
 		"astro-expressive-code": "^0.41.3",
 		"astro-icon": "^1.1.5",
-		"css-parser": "github:ramya-rao-a/css-parser#master",
 		"hastscript": "^9.0.1",
 		"katex": "^0.16.25",
 		"markdown-it": "^14.1.0",
