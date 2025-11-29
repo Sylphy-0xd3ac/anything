@@ -64,6 +64,7 @@
 		"unist-util-visit": "^5.0.0"
 	},
 	"devDependencies": {
+		"@astrojs/react": "^4.4.2",
 		"@astrojs/ts-plugin": "^1.10.5",
 		"@biomejs/biome": "2.2.5",
 		"@rollup/plugin-yaml": "^4.1.2",
