@@ -18,6 +18,6 @@
 
 * 开发:  
   
-  * Node.js,TypeScript,WebSocket开发后端工程师。
+  * Node.js, TypeScript 飞舞后端工程师。
   
   * Node.js 贡献者。
