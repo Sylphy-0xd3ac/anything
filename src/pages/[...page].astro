@@ -18,7 +18,9 @@ const len = page.data.length;
 ---
 
 <script>
-    if (location.host === "https://anything.edgeone.cool") document.getElementById("edgeone-watermark")?.remove();
+    addEventListener("load", () => {
+        if (location.host === "anything.edgeone.cool") document.getElementById("edgeone-watermark")?.remove();
+    });
 </script>
 
 <MainGridLayout>
