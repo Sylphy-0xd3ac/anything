@@ -1,4 +1,4 @@
-import { pangu } from "pangu/browser";
+import { pangu } from "pangu";
 import { visit } from "unist-util-visit";
 
 /**
