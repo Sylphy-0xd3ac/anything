@@ -49,12 +49,12 @@ module.exports.run = function () {}
 
 HMR 即模块热替换(Hot Module Replacement)，在业务模块的开发过程中，任意保存一个源码文件，都可以在其他业务模块不停机的情况下，重载这个模块的代码。这对插件化框架开发极为有用。
 
-目前，网络上常见的模块热替换基本为通过import缓存的是URL这一特性添加query等不影响URL地址内容的额外字符，让每次导入都使用不同的URL，防止导入被缓存的模块，实际上内部在每次加载还是会缓存URL，严重时可能导致内存泄露。
+目前，网络上常见的模块热替换方法基本为通过import缓存的是URL这一特性，添加query等不影响URL地址内容的额外字符，让每次导入都使用不同的URL，防止导入被缓存的模块，实际上内部在每次加载还是会缓存URL，严重时可能导致内存泄露。
 
 在某些框架如 [Koishi](https://koishi.chat) 中，支持通过require.cache删除已经加载的模块来实现HMR，但require.cache仅仅在 CJS 环境下可用。在 ESM 环境下加载的模块根本不会写入这个对象(参考[ESM-NoRequireCache](https://nodejs.org/api/esm.html#no-requirecache))。你可以在许多 issue 中看到人们对此的抱怨和请求：
 
-- [ESM module reloading and module graph · Issue #51 · nodejs/tooling · GitHub 2](https://github.com/nodejs/tooling/issues/51)
-- [hot reload modules w/ es6 modules · Issue #459 · nodejs/modules · GitHub 2](https://github.com/nodejs/modules/issues/459)
+- [ESM module reloading and module graph · Issue #51 · nodejs/tooling · GitHub](https://github.com/nodejs/tooling/issues/51)
+- [hot reload modules w/ es6 modules · Issue #459 · nodejs/modules · GitHub](https://github.com/nodejs/modules/issues/459)
 - [Invalidate cache when using import · Issue #49442 · nodejs/node · GitHub 3](https://github.com/nodejs/node/issues/49442)
 
 在2024年的 Koishi v5 预告中，Koishi 声称实在其元框架Cordis上实现了**互联网上首个无需打包器的 ESM HMR 完整技术广泛应用的完整技术方案之一**。
@@ -104,7 +104,9 @@ HMR 需要删除一个模块以及所有直接或间接依赖它的 ModuleJob，
 
 ### 缓存清理
 
-清理一个模块缓存,建议优先使用filter过滤，使用Map.prototype.delete或delete关键字可能会导致意想不到的后果。
+清理一个模块缓存时，实践中建议优先使用“filter 后重建 Map”的方式做快照式清理，而不是直接 `loadCache.delete(url)`（或使用 `delete` 关键字）。
+
+我们在测试中遇到过：即使对某个 url 执行了 `delete`，后续仍会出现缓存条目“残留/回填”、导致无法清除干净的现象（可能与 Node ESM loader 的内部状态、加载阶段的竞态、或存在多个 cache 视角有关）。因此实现上更倾向于通过过滤目标集合并一次性重建，来保证单次清理结果的一致性。
 
 ### 依赖重载
 
