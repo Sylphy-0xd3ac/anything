@@ -1,3 +1,13 @@
+# anything
+
+> 这是我的个人站点/博客仓库（基于 **Fuwari / Astro** 模板）。
+>
+> - 上游模板：saicaca/fuwari
+> - 我在这里做：站点配置、内容、少量样式改动（以及随时可能的重构）
+> - 如果你只是想用模板：请直接去上游仓库
+
+---
+
 # 🍥Fuwari  
 ![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen) 
 ![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue) 
