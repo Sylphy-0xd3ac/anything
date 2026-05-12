@@ -53,6 +53,7 @@
 		"rehype-components": "^0.3.0",
 		"rehype-katex": "^7.0.1",
 		"rehype-slug": "^6.0.0",
+		"remark-breaks": "^4.0.0",
 		"remark-directive": "^3.0.1",
 		"remark-directive-rehype": "^0.4.2",
 		"remark-github-admonitions-to-directives": "^1.0.5",
@@ -79,6 +80,7 @@
 		"@types/react": "^19.2.7",
 		"@types/react-dom": "^19.2.3",
 		"@types/sanitize-html": "^2.16.0",
+		"baseline-browser-mapping": "^2.10.29",
 		"postcss-import": "^16.1.1",
 		"postcss-nesting": "^13.0.2"
 	},
