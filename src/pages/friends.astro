@@ -1,0 +1,66 @@
+---
+import FriendCard from "@components/FriendCard.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<MainGridLayout title={"friends"} description={"friends"}>
+    <div
+        class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32"
+    >
+        <div class="card-base z-10 px-9 py-6 relative w-full">
+            <div class="flex items-center gap-2 mb-6">
+                <div
+                    class="h-8 w-8 rounded-lg bg-[var(--primary)] flex items-center justify-center text-white dark:text-black/70"
+                >
+                    <Icon
+                        name="material-symbols:diversity-3"
+                        class="text-[1.5rem]"
+                    />
+                </div>
+                <h1 class="text-2xl font-bold text-black dark:text-white">
+                    友链
+                </h1>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FriendCard
+                    url="https://xxtsoft.top"
+                    name="xxtsoft"
+                    description="xxt8582753（BSOD-MEMZ）的个人网站"
+                    icon_url="https://xxtsoft.top/favicon.ico"
+                />
+                <FriendCard
+                    url="https://0xabcd.dev"
+                    name="0xAbCd"
+                    description="Just Be Yourself."
+                    icon_url="https://0xabcd.dev/_astro/avatar_salt.BM3vKdZS_l4aiH.webp"
+                />
+                <FriendCard
+                    url="https://hhcl233.github.io/new-home/"
+                    name="hhcl233"
+                    description="(≧▽≦)hhcl233的个人主页"
+                    icon_url="https://github.com/user-attachments/assets/8034f07f-1419-46bb-978e-9149000e958d"
+                />
+                <FriendCard
+                    url="https://fshrimp.top/"
+                    name="陨落基围虾"
+                    description="好看的皮囊千篇一律，有趣的灵魂万里挑一"
+                    icon_url="https://v0id.ink/images/friend-fshrimp.jpg"
+                />
+                <FriendCard
+                    url="https://apanzinc.top/"
+                    name="apanzinc"
+                    description="我是 apanzinc，一名初三学生，专注于前后端开发与人工智能应用的学习与实践。"
+                    icon_url="https://v0id.ink/images/friend-apanzinc.png"
+                />
+                <FriendCard
+                    url="https://v0id.ink"
+                    name="Lonely"
+                    description="不会语文懒得写了"
+                    icon_url="https://hhcl233.github.io/new-home/img/lonely.svg"
+                />
+            </div>
+        </div>
+    </div>
+</MainGridLayout>

@@ -1,0 +1,26 @@
+---
+interface Props {
+    url: string;
+    name: string;
+    description: string;
+    icon_url: string;
+}
+
+const { url, name, description, icon_url } = Astro.props;
+---
+<a href={url} target="_blank" rel="noopener noreferrer" class="friend-card">
+    <div class="flex items-center gap-2">
+        <img src={icon_url} loading="lazy" alt={name} class="w-5 h-5 rounded shrink-0">
+        <div class="font-bold text-black dark:text-white truncate">{name}</div>
+    </div>
+    <div class="text-sm text-black/50 dark:text-white/50">{description}</div>
+</a>
+
+<style>
+.friend-card {
+    @apply flex flex-col gap-2 no-underline p-4 rounded-[var(--radius-large)] transition
+    bg-transparent border border-[var(--line-divider)]
+    hover:bg-black/[0.03] dark:hover:bg-white/[0.04]
+    hover:border-[var(--primary)];
+}
+</style>
