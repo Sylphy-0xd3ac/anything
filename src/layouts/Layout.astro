@@ -493,7 +493,16 @@ function scrollFunction() {
 		}
 	}
 }
-window.onscroll = scrollFunction
+// rAF-throttle: coalesce multiple scroll events within a frame into one, reducing forced reflow/repaint while scrolling
+let __scrollTicking = false
+window.addEventListener('scroll', () => {
+	if (__scrollTicking) return
+	__scrollTicking = true
+	requestAnimationFrame(() => {
+		scrollFunction()
+		__scrollTicking = false
+	})
+}, { passive: true })
 
 window.onresize = () => {
 	// calculate the --banner-height-extend, which needs to be a multiple of 4 to avoid blurry text
